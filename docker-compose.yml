@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  mcp-api:
+    build: .
+    container_name: mcp-ospf-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+  chainlit-ui:
+    image: python:3.10
+    container_name: chainlit-ui
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: bash -c "pip install --upgrade pip && pip install -r requirements.txt && chainlit run chainlit_frontend.py --host=0.0.0.0 --port=8001"
+    ports:
+      - "8001:8001"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
