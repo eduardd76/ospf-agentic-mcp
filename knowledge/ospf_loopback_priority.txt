@@ -1,0 +1,25 @@
+Problem: Unexpected DR/BDR behavior  
+Root Cause: Same Router-ID or priority settings
+
+Explanation:
+If multiple routers have the same OSPF priority or same router-id, DR/BDR election may not work as expected.
+
+CLI Diagnosis:
+- show ip ospf
+- show ip ospf interface
+
+Fix:
+interface Loopback0
+ ip address 1.1.1.1 255.255.255.255
+
+router ospf 1
+ router-id 1.1.1.1
+
+interface Gi0/1
+ ip ospf priority 100
+
+Validation:
+Reset OSPF adjacency:
+clear ip ospf process
+
+Then verify new DR/BDR election.

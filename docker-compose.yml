@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  ospf-agentic-mcp:
+    build: .
+    ports:
+      - "8000:8000"  # MCP API
+      - "8001:8001"  # Chainlit UI
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    restart: unless-stopped

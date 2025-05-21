@@ -1,0 +1,33 @@
+Problem: OSPF adjacency stuck in EXSTART state  
+Root Cause: MTU mismatch between OSPF neighbors  
+Explanation:
+When OSPF neighbors try to exchange Database Description (DBD) packets during the EXSTART phase, a mismatch in the MTU field can cause the routers to reject the packets. This prevents the adjacency from forming and causes it to reset to EXSTART repeatedly.
+
+CLI Diagnosis:
+- Check current MTU on interfaces:
+  show interfaces [interface] | include MTU
+
+- Check OSPF neighbor state:
+  show ip ospf neighbor
+
+Solution Summary:
+Ensure that the MTU is identical on both ends of the OSPF adjacency.
+
+Recommended CLI Fix:
+interface GigabitEthernet0/1
+mtu 1500
+
+
+Alternative Workaround:
+interface GigabitEthernet0/1
+ip ospf mtu-ignore
+
+
+Validation:
+After applying the fix, verify that the OSPF neighbor reaches the FULL state:
+show ip ospf neighbor
+
+
+Tags: OSPF, MTU mismatch, EXSTART, adjacency
+
+

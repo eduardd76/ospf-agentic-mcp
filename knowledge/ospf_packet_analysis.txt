@@ -1,0 +1,19 @@
+Problem: Need to inspect OSPF packets in depth  
+Root Cause: Complex issue needing packet-level visibility
+
+Explanation:
+For advanced troubleshooting, capture and inspect OSPF packets like Hello, DBD, LSU. Useful for confirming MTU mismatches, auth errors, LSAs.
+
+CLI / Tools:
+- debug ip ospf packet
+- debug ip ospf adj
+- Wireshark with filter: ospf
+
+Look for:
+- Missing Hello packets
+- MTU mismatch in DBD
+- Authentication failure
+- Incomplete LSAs
+
+Validation:
+Ensure packets exchanged match OSPF behavior (Hello, DBD, LS Update, LS Ack).

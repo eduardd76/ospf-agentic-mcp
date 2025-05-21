@@ -1,0 +1,21 @@
+Problem: No OSPF neighbors  
+Root Cause: Hello packets not exchanged
+
+Explanation:
+If Hello packets are not seen by neighbors, adjacency won't form. Possible causes: wrong network type, passive-interface, missing `network` statement, ACLs, or incorrect area.
+
+CLI Diagnosis:
+- show ip ospf interface [interface]
+- show ip ospf neighbor
+- show running-config | section ospf
+
+Fix:
+- Ensure `network` statements match interface IPs
+- Remove passive-interface:
+router ospf 1
+ no passive-interface Gi0/1
+
+- Allow OSPF in ACLs if used
+
+Validation:
+Check Hello packets are sent/received and state progresses from INIT → FULL.

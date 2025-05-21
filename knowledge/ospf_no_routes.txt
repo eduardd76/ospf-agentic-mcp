@@ -1,0 +1,19 @@
+Problem: OSPF routes missing from routing table  
+Root Cause: LSAs not received or processed
+
+Explanation:
+Even if neighbors are FULL, routes may not appear if LSAs are not exchanged correctly (ex: area mismatch, stub/NSSA issues, LSDB inconsistency).
+
+CLI Diagnosis:
+- show ip ospf database
+- show ip route ospf
+- show ip ospf neighbor
+
+Fix:
+- Check area types
+- Check LSAs in database
+- Ensure route is advertised from origin
+
+Validation:
+Routes should appear in routing table:
+show ip route ospf
